@@ -40,3 +40,8 @@ post "/signup" do
 
   erb :posts
 end
+
+get "/logout" do
+  session[:user] = nil
+  redirect to("/")
+end
