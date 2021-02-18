@@ -36,5 +36,7 @@ post "/signup" do
     redirect back
   end
 
+  session[:user] = user.params_columns
+
   erb :posts
 end

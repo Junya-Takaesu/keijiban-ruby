@@ -7,11 +7,18 @@
   <title>Keijiban</title>
 </head>
 <body>
+  <% if session[:user] %>
+    <ul>
+      <li>ユーザーネーム　<%= session[:user][:name] %></li>
+    </ul>
+  <% end %>
   <h1><a href="/">Keijiban</a></h1>
   <ul>
-    <li>
-      <a href="/signup">signup</a>
-    </li>
+    <% if !session[:user] %>
+      <li>
+        <a href="/signup">signup</a>
+      </li>
+    <% end %>
   </ul>
   <%= yield %>
 </body>
