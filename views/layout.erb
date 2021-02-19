@@ -9,7 +9,7 @@
 <body>
   <% if session[:user] %>
     <ul>
-      <li>ユーザーネーム　<%= session[:user][:name] %></li>
+      <li>ユーザーネーム　<%= session[:user]["name"] %></li>
     </ul>
   <% end %>
   <h1><a href="/">Keijiban</a></h1>

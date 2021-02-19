@@ -46,9 +46,10 @@ class Database
       end
       sql += " where " + parameters.join(" and ")
     end
-
     @conn.prepare "prepared", sql
-    @conn.exec_prepared "prepared", where.values.empty? ? [] : where.values
+    result = @conn.exec_prepared "prepared", where.values.empty? ? [] : where.values
+    @conn.exec("DEALLOCATE prepared")
+    result
   end
 
   def insert
@@ -65,9 +66,15 @@ class Database
     sql = sprintf "insert into %s (%s) values (%s)", @table, columns.join(", "), bind_params.join(", ")
 
     @conn.prepare "prepared", sql
-    @conn.exec_prepared "prepared", @params_columns.values
+    result = @conn.exec_prepared "prepared", @params_columns.values
+    @conn.exec("DEALLOCATE prepared")
+    result
   end
 end
+
+
+
+
 
 if $0 == __FILE__
   require_relative "user"

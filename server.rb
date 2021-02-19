@@ -31,14 +31,13 @@ post "/signup" do
     redirect back
   end
 
-  if !user.insert
+  if user.insert
+    session[:user] = user.select(where: {email: params[:email], password: params[:password]}).to_a.first
+    erb :posts
+  else
     flash[:error_messages] = "ユーザーの作成に失敗しました"
     redirect back
   end
-
-  session[:user] = user.params_columns
-
-  erb :posts
 end
 
 get "/logout" do
